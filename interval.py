@@ -19,7 +19,6 @@ elif sys.argv[1] == "C2": c2_rezimas = True
 
 debug = False
 pranesimo_failas = sys.argv[2]
-#uzkoduoto_pranesimo_failas = "kodas"
 
 indices = []
 S = []
@@ -32,12 +31,10 @@ current_location = 256
 code = ""
 
 with open(pranesimo_failas) as rf:
-	#c2_rezimas = int(rf.read(1))
 	if debug:
 		if c2_rezimas: print("Rezimas: C2")
 		else: print("Rezimas: C1")
 		print()
-	#with open(uzkoduoto_pranesimo_failas, 'w') as wf:
 	current = ""
 	while True:
 		c = rf.read(1)
@@ -64,18 +61,14 @@ with open(pranesimo_failas) as rf:
 				u = u + "{0:b}".format(k_u+1)
 				v += u + "{0:b}".format(k+1)
 				if debug: print("v_k: ", v)
-				#wf.write(v)
 				code += v
-				#sys.stdout.write(v)
 			else:
 				u = ""
 				for z in range(0, math.floor(math.log((k+1), 2))):
 					u += "0"
 				u = u + "{0:b}".format(k+1)
 				if debug: print("u_k: ", u)
-				#wf.write(u)
 				code += u
-				#sys.stdout.write(u)
 				locations[current] = current_location
 			current = ""
 			current_location += 1
