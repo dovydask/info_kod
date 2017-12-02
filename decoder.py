@@ -58,7 +58,7 @@ current_location = 256
 
 
 uzkoduota = "kodas2"
-dekoduota = "dekoduota"
+dekoduota = "dekoduota2"
 values = []
 with open(uzkoduota) as f:
 	kodas = f.read()
@@ -95,7 +95,7 @@ for k in values:
 #print ''.join(word)
 #print ''.join(all_bytes)
 
-with open('dekoduota', 'w') as file:
+with open(dekoduota, 'w') as file:
     file.write(''.join(all_bytes))
 
 	
