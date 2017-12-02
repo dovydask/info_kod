@@ -1,11 +1,18 @@
 import math
 import sys
 
-if len(sys.argv) < 3: 
-	print("Nenurodytas rezimas (C1 arba C2) ir/arba failas")
+if sys.argv[1] != "C1" and sys.argv[1] != "C2":
+	print("Nenurodytas režimas (C1 arba C2).")
+	sys.exit()
+elif len(sys.argv) < 3:
+	print("Trūksta argumentų.")
+	print("Programos naudojimo pavyzdys:")
+	print("interval.py [C1 arba C2] [failo vardas]")
 	sys.exit()
 elif len(sys.argv) > 3:
-	print("Per daug argumentų!")
+	print("Per daug argumentų.")
+	print("Programos naudojimo pavyzdys:")
+	print("interval.py [C1 arba C2] [failo vardas]")
 	sys.exit()
 elif sys.argv[1] == "C1": c2_rezimas = False
 elif sys.argv[1] == "C2": c2_rezimas = True
@@ -22,6 +29,7 @@ for s in range(0, 256):
 
 locations = dict(zip(S, indices))
 current_location = 256
+code = ""
 
 with open(pranesimo_failas) as rf:
 	#c2_rezimas = int(rf.read(1))
@@ -57,7 +65,8 @@ with open(pranesimo_failas) as rf:
 				v += u + "{0:b}".format(k+1)
 				if debug: print("v_k: ", v)
 				#wf.write(v)
-				sys.stdout.write(v)
+				code += v
+				#sys.stdout.write(v)
 			else:
 				u = ""
 				for z in range(0, math.floor(math.log((k+1), 2))):
@@ -65,8 +74,13 @@ with open(pranesimo_failas) as rf:
 				u = u + "{0:b}".format(k+1)
 				if debug: print("u_k: ", u)
 				#wf.write(u)
-				sys.stdout.write(u)
+				code += u
+				#sys.stdout.write(u)
 				locations[current] = current_location
 			current = ""
 			current_location += 1
 			if debug: print()
+			
+while len(code)%8 != 0:
+	code += "0"
+sys.stdout.write(code)
