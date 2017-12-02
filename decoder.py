@@ -63,12 +63,10 @@ with open(uzkoduota) as f:
 	kodas = f.read()
 	print kodas
 	if kodas[0] == "0":
-		option = 0
 		new_uzkoduota = kodas[1:-1]
 		print "c1"
 		c1_decode(new_uzkoduota)
 	if kodas[0] == "1":
-		option = 1
 		new_uzkoduota = kodas[1:-1]
 		print new_uzkoduota
 		print "c2"
