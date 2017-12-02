@@ -9,16 +9,16 @@ def c2_decode(binary_string):
 	print(zeros)
 	bits_to_get = ""	
 	bits_to_get = binary_string[zeros: (zeros*2)+1]
-	print(bits_to_get)
+	print bits_to_get
 	if bits_to_get == "":
 		return values
 		quit()
 	to_dec = int(bits_to_get, 2)
 	print(to_dec)
 	to_decode = binary_string[(zeros*2)+1: zeros*2+1+to_dec]
-	print (to_decode)
+	print to_decode
 	decoded_dec = int(to_decode, 2)
-	print(decoded_dec)
+	print decoded_dec
 	values.append(decoded_dec-1)
 	new_string = binary_string[zeros*2+1+to_dec:]
 	c2_decode(new_string)
@@ -56,7 +56,6 @@ for s in range(0, 256):
 locations = dict(zip(indices, S))
 current_location = 256
 
-print(locations)
 
 uzkoduota = "kodas2"
 dekoduota = "dekoduota"
@@ -74,28 +73,32 @@ with open(uzkoduota) as f:
 		print("c2")
 		c2_decode(new_uzkoduota)
 
-print(values)
-#new_values = tuple(values)
-#for k, val in enumerate(new_values):
-#	print k, val
-#atstumai = dict(zip(k, val))
-#print atstumai
+print values
 
 current_location = 256
+word = []
+all_bytes = []
 for k in values:
 	byte_index = current_location - k - 1
 	byte = locations[byte_index]
 	locations = {v: k for k, v in locations.items()}
 	locations[byte] = current_location
 	locations = {v: k for k, v in locations.items()}
-	print(byte)
+	letter = chr(int(byte,base=2))
+	word.append(letter)
+	all_bytes.append(byte)
+	#print byte
+	#print letter
 	current_location += 1
+#print word
+#print all_bytes
+#print ''.join(word)
+#print ''.join(all_bytes)
+
+with open('dekoduota', 'w') as file:
+    file.write(''.join(all_bytes))
+
 	
-
-new_location = current_location - values[0] - 1
-print(new_location)
-#print values[0]
-
 	
 #c1_decode("000000010010100000000010100000000000010100000010000000010010001")
 #c2_decode("00010100011101100000101011001011100000000")
