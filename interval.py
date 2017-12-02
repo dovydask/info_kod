@@ -69,7 +69,7 @@ with open(pranesimo_failas) as rf:
 				u = u + "{0:b}".format(k+1)
 				if debug: print("u_k: ", u)
 				code += u
-				locations[current] = current_location
+			locations[current] = current_location
 			current = ""
 			current_location += 1
 			if debug: print()
