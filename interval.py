@@ -14,8 +14,8 @@ elif len(sys.argv) > 3:
 	print("Programos naudojimo pavyzdys:")
 	print("interval.py [C1 arba C2] [failo vardas]")
 	sys.exit()
-elif sys.argv[1] == "C1": c2_rezimas = False
-elif sys.argv[1] == "C2": c2_rezimas = True
+elif sys.argv[1] == "C1": c2_rezimas = 0
+elif sys.argv[1] == "C2": c2_rezimas = 1
 
 debug = False
 pranesimo_failas = sys.argv[2]
@@ -25,7 +25,7 @@ S = []
 for s in range(0, 256):
 	S.append(format(s, "08b"))
 	indices.append(s)
-
+	
 locations = dict(zip(S, indices))
 current_location = 256
 code = ""
@@ -73,7 +73,8 @@ with open(pranesimo_failas) as rf:
 			current = ""
 			current_location += 1
 			if debug: print()
-			
+
+code = str(c2_rezimas) + code
 while len(code)%8 != 0:
 	code += "0"
 sys.stdout.write(code)
