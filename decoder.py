@@ -15,7 +15,7 @@ def c2_decode(binary_string):
 		quit()
 	to_dec = int(bits_to_get, 2)
 	print(to_dec)
-	to_decode = binary_string[(zeros*2)+1: zeros*2+1+to_dec]
+	to_decode = binary_string[(zeros*2)+1: (zeros*2+1)+to_dec]
 	print to_decode
 	decoded_dec = int(to_decode, 2)
 	print decoded_dec
@@ -57,18 +57,19 @@ locations = dict(zip(indices, S))
 current_location = 256
 
 
-uzkoduota = "kodas2"
-dekoduota = "dekoduota2"
+uzkoduota = "kodas3"
+dekoduota = "dekoduota3"
 values = []
 with open(uzkoduota) as f:
-	kodas = f.read()
+	kodas1 = [line.rstrip('\n') for line in f]
+        kodas = ''.join(kodas1)
 	print(kodas)
 	if kodas[0] == "0":
-		new_uzkoduota = kodas[1:-1]
+		new_uzkoduota = kodas[1:]
 		print("c1")
 		c1_decode(new_uzkoduota)
 	if kodas[0] == "1":
-		new_uzkoduota = kodas[1:-1]
+		new_uzkoduota = kodas[1:]
 		print(new_uzkoduota)
 		print("c2")
 		c2_decode(new_uzkoduota)
@@ -87,12 +88,12 @@ for k in values:
 	letter = chr(int(byte,base=2))
 	word.append(letter)
 	all_bytes.append(byte)
-	#print byte
-	#print letter
+	print byte
+	print letter
 	current_location += 1
 #print word
 #print all_bytes
-#print ''.join(word)
+print ''.join(word)
 #print ''.join(all_bytes)
 
 with open(dekoduota, 'w') as file:
