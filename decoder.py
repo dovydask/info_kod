@@ -60,9 +60,6 @@ locations = dict(zip(indices, S))
 current_location = 256
 
 uzkoduota = sys.argv[1]
-if len(sys.argv) < 1:
-	print("Nurodykite failą")
-	sys.exit()
 
 values = []
 with open(uzkoduota) as f:
