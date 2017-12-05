@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import sys
-from bitstring import BitArray
 
 def c2_decode(binary_string):
 	zeros = 0
@@ -65,6 +64,13 @@ uzkoduota = sys.argv[1]
 values = []
 with open(uzkoduota, "rb") as f:
 	baitai = []
+	mode = f.read(1)
+	mode = bin(ord(mode))[2:].rjust(8, '0')
+	if mode == "00000000":
+		c2_rezimas = False
+	elif mode == "00000001":
+		c2_rezimas == True
+		
 	while True:
 		if not f.read(1):
 			break
@@ -77,17 +83,17 @@ with open(uzkoduota, "rb") as f:
 		kodas = bin(kodas)[2:].rjust(8, '0')
 	#for bit in kodas:
 		kodas_str += kodas
-	print (kodas_str)
+	#print (kodas_str)
 	#kodas1 = [line.rstrip('\n') for line in f]
     #kodas = ''.join(kodas1)
-	#if kodas[0] == "0":
-	#	new_uzkoduota = kodas[1:]
-	#	print("c1")
-	#	c1_decode(new_uzkoduota)
-	#if kodas[0] == "1":
-	#	new_uzkoduota = kodas[1:]
-	#	print("c2")
-	#	c2_decode(new_uzkoduota)
+	if c2_rezimas:
+		#new_uzkoduota = kodas[1:]
+		print("c1")
+		c1_decode(kodas_str)
+	if not c2_rezimas:
+		#new_uzkoduota = kodas[1:]
+		print("c2")
+		c2_decode(kodas_str)
 
 print (values)
 
