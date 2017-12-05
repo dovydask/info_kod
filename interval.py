@@ -30,7 +30,7 @@ locations = dict(zip(S, indices))
 current_location = 256
 code = ""
 
-with open(pranesimo_failas) as rf:
+with open(pranesimo_failas, "rb") as rf:
 	if debug:
 		if c2_rezimas: print("Rezimas: C2")
 		else: print("Rezimas: C1")
@@ -41,40 +41,53 @@ with open(pranesimo_failas) as rf:
 		if not c:
 			if debug: print("Failo pabaiga")
 			break
-		current += c
-		if len(current) == 8:
-			last_location = locations[current]
-			k = current_location - last_location - 1
-	
-			if debug:
-				print("Gautas zodis: ", current)
-				print("Dabartine vieta: ", current_location)
-				print("Paskutine vieta: ", last_location)
-				print("Atstumas: ", k) 
 			
-			if c2_rezimas:
-				v = ""
-				u = ""
-				k_u = math.floor(math.log((k+1), 2))
-				for z in range(0, math.floor(math.log((k_u+1), 2))):
-					u += "0"
-				u = u + "{0:b}".format(k_u+1)
-				v += u + "{0:b}".format(k+1)
-				if debug: print("v_k: ", v)
-				code += v
-			else:
-				u = ""
-				for z in range(0, math.floor(math.log((k+1), 2))):
-					u += "0"
-				u = u + "{0:b}".format(k+1)
-				if debug: print("u_k: ", u)
-				code += u
-			locations[current] = current_location
-			current = ""
-			current_location += 1
-			if debug: print()
+		c = bin(ord(c))[2:].rjust(8, '0')
+		#current += c
+		#if len(current) == 8:
+		last_location = locations[c]
+		k = current_location - last_location - 1
+		
+		if debug:
+			print("Gautas zodis: ", c)
+			print("Dabartine vieta: ", current_location)
+			print("Paskutine vieta: ", last_location)
+			print("Atstumas: ", k) 
+			
+		if c2_rezimas:
+			v = ""
+			u = ""
+			k_u = math.floor(math.log((k+1), 2))
+			for z in range(0, math.floor(math.log((k_u+1), 2))):
+				u += "0"
+			u = u + "{0:b}".format(k_u+1)
+			v += u + "{0:b}".format(k+1)
+			if debug: print("v_k: ", v)
+			code += v
+		else:
+			u = ""
+			for z in range(0, math.floor(math.log((k+1), 2))):
+				u += "0"
+			u = u + "{0:b}".format(k+1)
+			if debug: print("u_k: ", u)
+			code += u
+		locations[c] = current_location
+		#current = ""
+		current_location += 1
+		if debug: print()
 
 code = str(c2_rezimas) + code
 while len(code)%8 != 0:
 	code += "0"
-sys.stdout.write(code)
+#sys.stdout.write(code)
+
+
+kodas = [code[i:i+8] for i in range(0, len(code), 8)]
+with open("kodas", "wb") as wf:
+	dat = bytes[(int(c2_rezimas, 2))]
+	wf.write(dat)
+	for kod in kodas:
+		#print(kod)
+		n = int(kod, 2)
+		data = bytes([n])
+		wf.write(data)
