@@ -84,8 +84,12 @@ while len(code)%8 != 0:
 
 kodas = [code[i:i+8] for i in range(0, len(code), 8)]
 with open("kodas", "wb") as wf:
-	dat = bytes[(int(c2_rezimas, 2))]
-	wf.write(dat)
+	if c2_rezimas:
+		n = int("00000001", 2)
+	else:
+		n = int("00000000", 2)
+	data = bytes([n])
+	wf.write(data)
 	for kod in kodas:
 		#print(kod)
 		n = int(kod, 2)
