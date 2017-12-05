@@ -1,24 +1,26 @@
+# -*- coding: utf-8 -*-
 import math
 import sys
 
 if sys.argv[1] != "C1" and sys.argv[1] != "C2":
 	print("Nenurodytas režimas (C1 arba C2).")
 	sys.exit()
-elif len(sys.argv) < 3:
+elif len(sys.argv) < 4:
 	print("Trūksta argumentų.")
 	print("Programos naudojimo pavyzdys:")
-	print("interval.py [C1 arba C2] [failo vardas]")
+	print("interval.py [C1 arba C2] [koduojamo failo vardas] [užkoduoto failo vardas]")
 	sys.exit()
-elif len(sys.argv) > 3:
+elif len(sys.argv) > 4:
 	print("Per daug argumentų.")
 	print("Programos naudojimo pavyzdys:")
-	print("interval.py [C1 arba C2] [failo vardas]")
+	print("interval.py [C1 arba C2] [koduojamo failo vardas] [užkoduoto failo vardas]")
 	sys.exit()
 elif sys.argv[1] == "C1": c2_rezimas = 0
 elif sys.argv[1] == "C2": c2_rezimas = 1
 
 debug = False
 pranesimo_failas = sys.argv[2]
+kodo_failas = sys.argv[3]
 
 indices = []
 S = []
@@ -43,8 +45,6 @@ with open(pranesimo_failas, "rb") as rf:
 			break
 			
 		c = bin(ord(c))[2:].rjust(8, '0')
-		#current += c
-		#if len(current) == 8:
 		last_location = locations[c]
 		k = current_location - last_location - 1
 		
@@ -72,26 +72,21 @@ with open(pranesimo_failas, "rb") as rf:
 			if debug: print("u_k: ", u)
 			code += u
 		locations[c] = current_location
-		#current = ""
 		current_location += 1
 		if debug: print()
 
-code = str(c2_rezimas) + code
 while len(code)%8 != 0:
 	code += "0"
-#sys.stdout.write(code)
-
 
 kodas = [code[i:i+8] for i in range(0, len(code), 8)]
-with open("kodas", "wb") as wf:
+with open(kodo_failas, "wb") as wf:
 	if c2_rezimas:
-		n = int("00000001", 2)
+		n = int("11111111", 2)
 	else:
 		n = int("00000000", 2)
 	data = bytes([n])
 	wf.write(data)
 	for kod in kodas:
-		#print(kod)
 		n = int(kod, 2)
 		data = bytes([n])
 		wf.write(data)
