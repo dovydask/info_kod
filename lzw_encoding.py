@@ -37,9 +37,8 @@ def compress(input, output, dict_limit, dict_freeze):
 					if not frozen:
 						dictionary[wc] = dict_size
 						dict_size += 1
-						w = c
-	
-			#print(dictionary)
+					w = c
+
 			if w:
 				for i in range(0, len(w), 8):
 					n = format(dictionary[w[i:i+8]], "016b")
@@ -53,12 +52,12 @@ def main():
 	if len(sys.argv) < 5:
 		print("Trūksta argumentų.")
 		print("Programos naudojimo pavyzdys:")
-		print(sys.argv[0] + " [koduojamas failas] [užkoduotas failas] [žodyno dydis] [šaldyti ar ištrinti žodyną (0 arba 1)]")
+		print(sys.argv[0] + " [koduojamas failas] [užkoduotas failas] [skaičius n: 2^n = žodyno riba] [šaldyti ar ištrinti žodyną (0 arba 1)]")
 		sys.exit()
 	elif len(sys.argv) > 5:
 		print("Per daug argumentų.")
 		print("Programos naudojimo pavyzdys:")
-		print(sys.argv[0] + " [koduojamas failas] [užkoduotas failas] [žodyno dydis] [šaldyti ar ištrinti žodyną (0 arba 1)]")
+		print(sys.argv[0] + " [koduojamas failas] [užkoduotas failas] [skaičius n: 2^n = žodyno riba] [šaldyti ar ištrinti žodyną (0 arba 1)]")
 		sys.exit()
 		
 	input = sys.argv[1]
