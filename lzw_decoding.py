@@ -23,12 +23,11 @@ def decompress(input, output):
 			wf.write(bytes([int(dictionary[n], 2)]))
 			while True:
 				if dict_size == dict_limit and dict_freeze:
-					frozen = False ##
+					frozen = True
 				elif dict_size == dict_limit and not dict_freeze:
-					#dict_size = 256
-					#dictionary = {}
-					#dictionary = {format(i, "08b"): i for i in range(dict_size)}
-					frozen = False
+					dict_size = 256
+					dictionary = {}
+					dictionary = {format(i, "08b"): i for i in range(dict_size)}
 				
 				k1 = rf.read(1)
 				k2 = rf.read(1)
@@ -44,17 +43,19 @@ def decompress(input, output):
 				elif k == dict_size:
 					entry = w + w[0:8]
 				
-				#print(entry)
 				for i in range(0, len(entry), 8):
 					temp = entry[i:i+8]
 					wf.write(bytes([int(temp, 2)]))
 				
 				if not frozen:
 					dictionary[dict_size] = w + entry[0:8]
-					dict_size += 1				
 					w = entry
+				else:
+					w = ""
+				dict_size += 1
 			
-			print(entry)
+			print(dictionary)
+			
 			if entry:
 				for i in range(0, len(entry), 8):
 						temp = entry[i:i+8]
