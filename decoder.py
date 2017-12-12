@@ -3,7 +3,6 @@ import sys
 import struct
 import time
 import numpy
-#from bitarray import bitarray
 start_time = time.time()
 
 if len(sys.argv) < 3:
@@ -30,16 +29,11 @@ def c2_decode(input, output):
 	with open(input, "rb") as rf:
 		rf.read(1)
 		byte = rf.read(1)
-		print (byte)
 		binary_string = bin(ord(byte))[2:].rjust(8, '0')
-		#a = bitarray(endian='big')
-		#a.frombytes(byte)
-		#print (a)
 		with open(output, "wb") as wf:
 			while True:
 				zeros = 0
 				start = 0
-				#print(binary_string)
 				i = 0
 				to_break = False
 				while True:
@@ -48,14 +42,12 @@ def c2_decode(input, output):
 						if not byte:
 							to_break = True
 							break
-						#print("+", bin(ord(byte))[2:].rjust(8, '0'))
 						binary_string += bin(ord(byte))[2:].rjust(8, '0')
 					if binary_string[i] == "0":
 						zeros += 1
 						i += 1
 					else:
 						binary_string = binary_string[zeros:]
-						#print (binary_string)
 						break
 						
 				if to_break: 
@@ -66,30 +58,24 @@ def c2_decode(input, output):
 					if not byte:
 						to_break = True
 						break
-					#print("+", bin(ord(byte))[2:].rjust(8, '0'))
 					binary_string += bin(ord(byte))[2:].rjust(8, '0')
 				
 				if to_break:
 					break
 				
-				#print(binary_string, zeros+1)
 				bits_to_get = ""	
 				bits_to_get = binary_string[:zeros+1]
-				#print (bits_to_get)
-				#print("btg:", bits_to_get)
 				if bits_to_get == "":
 					break
 				to_dec = int(bits_to_get, 2)
 				
 				binary_string = binary_string[len(bits_to_get):]
-				#print (binary_string)
 				
 				while len(binary_string) <= (to_dec):
 					byte = rf.read(1)
 					if not byte:
 						to_break = True
 						break
-					#print("+", bin(ord(byte))[2:].rjust(8, '0'))
 					binary_string += bin(ord(byte))[2:].rjust(8, '0')
 				
 				if to_break:
@@ -126,14 +112,10 @@ def c1_decode(input, output):
 		rf.read(1)
 		byte = rf.read(1)
 		binary_string = bin(ord(byte))[2:].rjust(8, '0')
-		#a = bitarray(endian='big')
-		#a.frombytes(byte)
-		#print (a)
 		with open(output, "wb") as wf:
 			while True:
 				zeros = 0
 				start = 0
-				#print(binary_string)
 				i = 0
 				to_break = False
 				while True:
@@ -142,7 +124,6 @@ def c1_decode(input, output):
 						if not byte:
 							to_break = True
 							break
-						#print("+", bin(ord(byte))[2:].rjust(8, '0'))
 						binary_string += bin(ord(byte))[2:].rjust(8, '0')
 					if binary_string[i] == "0":
 						zeros += 1
@@ -159,16 +140,13 @@ def c1_decode(input, output):
 					if not byte:
 						to_break = True
 						break
-					#print("+", bin(ord(byte))[2:].rjust(8, '0'))
 					binary_string += bin(ord(byte))[2:].rjust(8, '0')
 				
 				if to_break:
 					break
 				
-				#print(binary_string, zeros+1)
 				bits_to_get = ""	
 				bits_to_get = binary_string[:zeros+1]
-				#print("btg:", bits_to_get)
 				if bits_to_get == "":
 					break
 				to_dec = int(bits_to_get, 2)
@@ -204,7 +182,6 @@ with open(uzkoduota, "rb") as f:
 		c2_rezimas = True
 
 	if c2_rezimas:
-		#print ("aaaa")
 		c2_decode(uzkoduota, rezultatas)
 	else:
 		c1_decode(uzkoduota, rezultatas)
