@@ -18,7 +18,6 @@ def compress(input, output, dict_limit, dict_freeze):
 					frozen = True
 				elif dict_size == dict_limit and not dict_freeze:
 					dict_size = 256
-					dictionary = {}
 					dictionary = {format(i, "08b"): i for i in range(dict_size)}
 				
 				c = rf.read(1)
