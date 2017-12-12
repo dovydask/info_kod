@@ -26,9 +26,8 @@ def decompress(input, output):
 					frozen = True
 				elif dict_size == dict_limit and not dict_freeze:
 					dict_size = 256
-					dictionary = {}
-					dictionary = {format(i, "08b"): i for i in range(dict_size)}
-				
+					dictionary = {i: format(i, "08b") for i in range(dict_size)}
+			
 				k1 = rf.read(1)
 				k2 = rf.read(1)
 				if not k1 or not k2:
@@ -53,8 +52,6 @@ def decompress(input, output):
 				else:
 					w = ""
 				dict_size += 1
-			
-			print(dictionary)
 			
 			if entry:
 				for i in range(0, len(entry), 8):
