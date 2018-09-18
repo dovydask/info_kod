@@ -2,6 +2,7 @@
 Informacijos ir kodavimo programos
 
 Elias C1 ir C2 kodavimas - interval.py
+
 Elias C1 ir C2 dekodavimas - decoder.py
 
 interval.py naudojimas:
