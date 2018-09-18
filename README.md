@@ -2,7 +2,8 @@
 
 ### Autoriai: Dovydas Kičiatovas ir Dovilė Preidytė
 
-Informacijos ir kodavimo programos:
+Informacijos kodavimo/dekodavimo programos pagal Elias C1/C2 ir LZW algoritmus.
+Kodas parašytas Python 3.6 kalba.
 
 Elias C1 ir C2 kodavimas - interval.py, dekodavimas - decoder.py
 
